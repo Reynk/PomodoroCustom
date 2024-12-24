@@ -4,7 +4,7 @@ import time
 # Delay frames in seconds
 delay = 0.1
 
-# ASCII frames
+# ASCII frames (it's supposed to be a cat with a cape running)
 fcontent = [
     """
                                        .N:                            
