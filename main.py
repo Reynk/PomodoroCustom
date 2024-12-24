@@ -36,18 +36,25 @@ def pomodoro_timer(first_half_work, first_half_pause, second_half_work, second_h
     stop_animation.set()
     animation_thread.join()
     
-    # Second half work time
-    print(f"Second half work time: {second_half_work} minutes")
-    time.sleep(second_half_work * 60)
-    
-    # Second half pause time
-    print(f"Second half pause time: {second_half_pause} minutes")
-    stop_animation = threading.Event()
-    animation_thread = threading.Thread(target=run_animation)
-    animation_thread.start()
-    time.sleep(second_half_pause * 60)
-    stop_animation.set()
-    animation_thread.join()
+    current_work_time = (first_half_work + second_half_work) * rounds
+
+    while current_work_time < 8 * 60:
+
+        # Second half work time
+        print(f"Second half work time: {second_half_work} minutes")
+        time.sleep(second_half_work * 60)
+        current_work_time += second_half_work
+        
+        # Second half pause time
+        print(f"Second half pause time: {second_half_pause} minutes")
+        stop_animation = threading.Event()
+        animation_thread = threading.Thread(target=run_animation)
+        animation_thread.start()
+        time.sleep(second_half_pause * 60)
+        stop_animation.set()
+        animation_thread.join()
+        current_work_time += second_half_pause
+        
     
     print("Pomodoro session complete!")
 
